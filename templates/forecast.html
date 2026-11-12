@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block heading %}Ishlab chiqarish prognozi{% endblock %}
+
+{% block content %}
+<section class="stats">
+    <article class="stat">
+        <span>Keyingi oy prognozi</span>
+        <strong>{{ "{:,.0f}".format(result['next_month']) }}</strong>
+        <small>Mahsulot birligida</small>
+    </article>
+
+    <article class="stat">
+        <span>Model R² ko‘rsatkichi</span>
+        <strong>{{ result['r2'] }}</strong>
+        <small>Namoyish datasetida</small>
+    </article>
+</section>
+
+<section class="panel">
+    <div class="panel-head">
+        <div>
+            <h2>Linear Regression prognozi</h2>
+            <p>12 oylik namunaviy ishlab chiqarish ma’lumotlari</p>
+        </div>
+    </div>
+
+    <canvas id="forecastChart" height="110"></canvas>
+
+    <p class="notice">{{ result['note'] }}</p>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+window.forecastData = {{ {
+    'months': result['months'],
+    'values': result['values'],
+    'next': result['next_month']
+}|tojson }};
+</script>
+{% endblock %}
