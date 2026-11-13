@@ -1,0 +1,18 @@
+{% extends "base.html" %}{% block title %}Dashboard | Manufacturing{% endblock %}
+{% block content %}
+<section class="stats">
+  <article class="stat"><span>Mahsulotlar</span><strong>{{ products }}</strong><small>Ro‘yxatdagi mahsulotlar</small></article>
+  <article class="stat"><span>Faol buyurtmalar</span><strong>{{ orders }}</strong><small>Bajarilishi kutilmoqda</small></article>
+  <article class="stat"><span>Ishlab chiqarish rejalari</span><strong>{{ plans }}</strong><small>Jami rejalar</small></article>
+  <article class="stat warning"><span>Kam qolgan xomashyo</span><strong>{{ materials }}</strong><small>Minimal chegaradan past</small></article>
+</section>
+<section class="panel">
+  <div class="panel-head"><div><h2>Ishlab chiqarish rejasi</h2><p>Oxirgi kiritilgan rejalar</p></div><a class="button" href="/plans">Reja qo‘shish</a></div>
+  <div class="table-wrap"><table><thead><tr><th>Sana</th><th>Mahsulot</th><th>Reja</th><th>Bajarildi</th><th>Holat</th></tr></thead><tbody>
+  {% for row in recent %}<tr><td>{{row.plan_date}}</td><td>{{row.product_name}}</td><td>{{row.planned_quantity}}</td><td>{{row.completed_quantity}}</td><td><span class="pill">{{row.status}}</span></td></tr>
+  {% else %}<tr><td colspan="5" class="empty">Hozircha reja yo‘q. “Reja qo‘shish” tugmasi orqali birinchi rejani yarating.</td></tr>{% endfor %}
+  </tbody></table></div>
+</section>
+<section class="panel chart-panel"><div class="panel-head"><div><h2>Ishlab chiqarish ko‘rsatkichi</h2><p>Namoyish grafigi</p></div></div><canvas id="overviewChart" height="90"></canvas></section>
+{% endblock %}
+{% block scripts %}<script>window.dashboardChart = true;</script>{% endblock %}
