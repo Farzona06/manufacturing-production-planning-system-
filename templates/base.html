@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="uz">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Manufacturing Planner{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+<div class="app-shell">
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-mark">MP</span><div><b>Manufacturing</b><small>Production Planner</small></div></div>
+    <nav>
+      <a href="/">▦ Dashboard</a><a href="/products">▣ Mahsulotlar</a>
+      <a href="/plans">◷ Ishlab chiqarish rejasi</a><a href="/materials">▤ Xomashyo ombori</a>
+      <a href="/orders">▧ Buyurtmalar</a><a href="/forecast">⌁ Prognoz</a>
+    </nav>
+    <div class="sidebar-foot">University project · MVP</div>
+  </aside>
+  <main class="main">
+    <header class="topbar"><div><span class="eyebrow">PRODUCTION MANAGEMENT</span><h1>{% block heading %}Boshqaruv paneli{% endblock %}</h1></div><span class="avatar">A</span></header>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}{% for category, message in messages %}<div class="flash {{category}}">{{message}}</div>{% endfor %}{% endif %}
+    {% endwith %}
+    {% block content %}{% endblock %}
+    <footer>Manufacturing Production Planning System <span>•</span> Academic prototype</footer>
+  </main>
+</div>
+<script src="{{ url_for('static', filename='js/app.js') }}"></script>
+{% block scripts %}{% endblock %}
+</body></html>
